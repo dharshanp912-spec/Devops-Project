@@ -28,7 +28,7 @@ jobs:
         run:
           scp -o StrictHostKeyChecking=no -i SAV-team.pem app.py ec2-user@43.204.24.128:/home/ec2-user/
 
-      - name: cp requirement
+      - name: cp requirement.txt
         run:
           scp -o StrictHostKeyChecking=no -i SAV-team.pem requirement.txt ec2-user@43.204.24.128:/home/ec2-user/
 
