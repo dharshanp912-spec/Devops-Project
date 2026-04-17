@@ -19,19 +19,19 @@ jobs:
 
       - name: get pem file
         run: |
-          echo "${{secrets.SAV}}" > SAV-team.pem
+          echo "${{secrets.dharshan}}" > SAV-team.pem
           chmod 400 SAV-team.pem
           
 
 
       - name: cp python
         run:
-          scp -o StrictHostKeyChecking=no -i SAV-team.pem app.py ec2-user@52.66.53.243:/home/ec2-user/
+          scp -o StrictHostKeyChecking=no -i SAV-team.pem app.py ec2-user@43.204.24.128:/home/ec2-user/
 
       - name: cp requirement
         run:
-          scp -o StrictHostKeyChecking=no -i SAV-team.pem requirement.txt ec2-user@52.66.53.243:/home/ec2-user/
+          scp -o StrictHostKeyChecking=no -i SAV-team.pem requirement.txt ec2-user@43.204.24.128:/home/ec2-user/
 
       - name: run application
         run:
-          ssh -o StrictHostKeyChecking=no -i SAV-team.pem ec2-user@52.66.53.243 "cd /home/ec2-user && python3 -m venv virtualenv && source virtualenv/bin/activate && pip3 install -r requirement.txt && python3 app.py
+          ssh -o StrictHostKeyChecking=no -i SAV-team.pem ec2-user@43.204.24.128 "cd /home/ec2-user && python3 -m venv virtualenv && source virtualenv/bin/activate && pip3 install -r requirement.txt && python3 app.py
