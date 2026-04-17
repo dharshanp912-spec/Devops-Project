@@ -1,0 +1,37 @@
+name: loadbalancer
+on: workflow_dispatch
+
+jobs:
+  build-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: installing python
+        uses: actions/setup-python@v6 
+        with:
+          python-version: 'pypy3.10' 
+        
+          
+
+      - name: get pem file
+        run: |
+          echo "${{secrets.SAV}}" > SAV-team.pem
+          chmod 400 SAV-team.pem
+          
+
+
+      - name: cp python
+        run:
+          scp -o StrictHostKeyChecking=no -i SAV-team.pem app.py ec2-user@52.66.53.243:/home/ec2-user/
+
+      - name: cp requirement
+        run:
+          scp -o StrictHostKeyChecking=no -i SAV-team.pem requirement.txt ec2-user@52.66.53.243:/home/ec2-user/
+
+      - name: run application
+        run:
+          ssh -o StrictHostKeyChecking=no -i SAV-team.pem ec2-user@52.66.53.243 "cd /home/ec2-user && python3 -m venv virtualenv && source virtualenv/bin/activate && pip3 install -r requirement.txt && python3 app.py
