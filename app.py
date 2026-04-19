@@ -1,8 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 
-app=Flask(_name_)
+app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def home():
-    return "Hello from Team"
-app.run(host="0.0.0.0",port=5001)
+    return render_template("index.html")
+
+@app.route('/menu')
+def menu():
+    return "Pizza | Burger | Sandwich"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
